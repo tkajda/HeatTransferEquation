@@ -9,7 +9,7 @@ public class IntegralSolver {
 
     private final int numOfIntegrationPoints;
     IterativeLegendreGaussIntegrator solver;
-    private static final double ACCURACY = Math.pow(0.1,2);
+    private static final double ACCURACY = Math.pow(0.1,5);
     private final double denominator;
     private static final double domain=2;
     private final double n;
@@ -155,7 +155,7 @@ public class IntegralSolver {
 
 
     private double L_v(int i ) {
-        return -20*e(0,i);
+        return -K(0)*20*e(0,i);
     }
 
 
