@@ -16,7 +16,7 @@ public class Solver {
 
     public Solver(int numOfIntegrationPoints) {
         this.numOfIntegrationPoints = numOfIntegrationPoints;
-        this.solver = new IterativeLegendreGaussIntegrator(numOfIntegrationPoints, ACCURACY, ACCURACY);
+        this.solver = new IterativeLegendreGaussIntegrator(3, ACCURACY, ACCURACY);
         this.denominator = Math.abs(domain / numOfIntegrationPoints);
         this.n = numOfIntegrationPoints;
         this.solve(numOfIntegrationPoints);
@@ -88,17 +88,17 @@ public class Solver {
         for(int i = 0; i< size;i++) {
             lVector.setEntry(i, L_v(i));
         }
-        System.out.println("B(ei,ej) matrix=" + lVector);
-
-        for(int i = 0; i< size; i++) {
-            System.out.println(matrix.getRowMatrix(i));
-        }
-        System.out.println("L(ei) vector=" + lVector);
+//        System.out.println("B(ei,ej) matrix=" + lVector);
+//
+//        for(int i = 0; i< size; i++) {
+//            System.out.println(matrix.getRowMatrix(i));
+//        }
+//        System.out.println("L(ei) vector=" + lVector);
 
         try {
             DecompositionSolver solver = new LUDecomposition(matrix).getSolver();
             this.result = solver.solve(lVector);
-            System.out.println("result=" + result);
+//            System.out.println("result=" + result);
 
         }
         catch (Exception e) {
@@ -131,8 +131,8 @@ public class Solver {
         double[] eiDomain = e_domain(i,i*denominator);
         double[] ejDomain = e_domain(j,j*denominator);
 
-        double integrateFrom = Math.round(Math.max(eiDomain[0], ejDomain[0])*100.0)/100.0;
-        double integrateTo =   Math.round(Math.min(eiDomain[1], ejDomain[1])*100.0)/100.0;
+        double integrateFrom = Math.round(Math.max(eiDomain[0], ejDomain[0])*10000.0)/10000.0;
+        double integrateTo =   Math.round(Math.min(eiDomain[1], ejDomain[1])*10000.0)/10000.0;
 
 
         double solution = solver.integrate(
